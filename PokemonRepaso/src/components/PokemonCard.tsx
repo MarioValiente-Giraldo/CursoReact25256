@@ -1,11 +1,15 @@
 import React from 'react';
 import type { Pokemon } from '../types/pokemon';
+import { useTheme } from '../context/ThemeContext';
 
 interface PokemonCardProps {
   pokemon: Pokemon;
 }
 
 const PokemonCard = ({ pokemon }: PokemonCardProps) => {
+  const { theme } = useTheme()
+  const isDark = theme === 'dark'
+
   // Colores para cada tipo de Pokémon
   const typeColors: Record<string, string> = {
     normal: 'bg-gray-400',
@@ -29,12 +33,18 @@ const PokemonCard = ({ pokemon }: PokemonCardProps) => {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 
-                    transform hover:-translate-y-2 p-6 border-4 border-gray-100 
-                    hover:border-red-300 group">
+    <div className={`rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 
+                    transform hover:-translate-y-2 p-6 border-4 group ${
+                      isDark 
+                        ? 'bg-gray-800 border-gray-700 hover:border-red-500' 
+                        : 'bg-white border-gray-100 hover:border-red-300'
+                    }`}>
       {/* Imagen del Pokémon */}
-      <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-4 mb-4 
-                      group-hover:from-red-50 group-hover:to-orange-50 transition-all duration-300">
+      <div className={`rounded-xl p-4 mb-4 transition-all duration-300 ${
+        isDark 
+          ? 'bg-gradient-to-br from-gray-700 to-gray-600 group-hover:from-red-900 group-hover:to-orange-900' 
+          : 'bg-gradient-to-br from-gray-50 to-gray-100 group-hover:from-red-50 group-hover:to-orange-50'
+      }`}>
         <img 
           src={pokemon.imagen} 
           alt={pokemon.nombre} 
@@ -44,8 +54,10 @@ const PokemonCard = ({ pokemon }: PokemonCardProps) => {
       </div>
 
       {/* Nombre del Pokémon */}
-      <h3 className="text-2xl font-bold text-gray-800 capitalize text-center mb-3 
-                     group-hover:text-red-600 transition-colors">
+      <h3 className={`text-2xl font-bold capitalize text-center mb-3 
+                     group-hover:text-red-600 transition-colors ${
+                       isDark ? 'text-gray-100' : 'text-gray-800'
+                     }`}>
         {pokemon.nombre}
       </h3>
 

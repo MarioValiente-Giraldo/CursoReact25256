@@ -2,6 +2,7 @@ import React, { use } from 'react';
 import type { Pokemon } from '../types/pokemon';
 import PokemonCard from './PokemonCard';
 import notFoundPokemon from '../assets/notFoundPokemon.gif'
+import { useTheme } from '../context/ThemeContext';
 
 interface PokemonListProps {
   pokemonPromise: Promise<Pokemon[]>;
@@ -9,6 +10,8 @@ interface PokemonListProps {
 
 const PokemonList = ({ pokemonPromise }: PokemonListProps) => {
   const pokemons = use(pokemonPromise);
+  const { theme } = useTheme()
+  const isDark = theme === 'dark'
 
   if (pokemons.length === 0) {
     return (
@@ -21,10 +24,12 @@ const PokemonList = ({ pokemonPromise }: PokemonListProps) => {
         />
         
         {/* Textos */}
-        <p className="text-2xl font-semibold text-gray-700 mb-2">
+        <p className={`text-2xl font-semibold mb-2 ${
+          isDark ? 'text-gray-200' : 'text-gray-700'
+        }`}>
           No se encontró ningún Pokémon
         </p>
-        <p className="text-gray-500">
+        <p className={isDark ? 'text-gray-400' : 'text-gray-500'}>
           Intenta buscar con otro nombre
         </p>
       </div>

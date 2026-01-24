@@ -10,11 +10,19 @@ import { Toaster } from 'sonner'
 import { ProtectedRouteAdmin } from './components/ProtectedRouteAdmin'
 import DashBoard from './pages/Dashboard'
 import LoginForm from './components/LoginForm'
+import { useTheme } from './context/ThemeContext'
 
 const App = () => {
+  const { theme } = useTheme()
+  const isDark = theme === 'dark'
+
   return (
-    <div className='min-h-screen bg-gradient-to-br from-gray-50 via-red-50 to-orange-50'>
-      <Toaster position='top-center' richColors />
+    <div className={`min-h-screen transition-colors ${
+      isDark 
+        ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900' 
+        : 'bg-gradient-to-br from-gray-50 via-red-50 to-orange-50'
+    }`}>
+      <Toaster position='top-center' richColors theme={theme} />
         <Header />
         <NavBar />
         <main>
@@ -38,4 +46,3 @@ const App = () => {
 }
 
 export default App
-
