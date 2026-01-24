@@ -4,12 +4,19 @@ import type { Pokemon } from '../types/pokemon';
 import Search from '../components/Search';
 import PokemonList from '../components/PokemonList';
 import LoadingFallBack from '../components/LoadingFallBack';
+import { useAuth } from '../context/AuthContext';
+import { Navigate } from 'react-router-dom';
+import LoginForm from '../components/LoginForm';
 
 const PokemonSearch = () => {
   const [pokemonsPromise, setPokemonsPromise] = useState<Promise<Pokemon[]> | null>(null);
   const [query, setQuery] = useState('');
+  const {user} = useAuth()
 
   useEffect(() => {
+    if(!user){
+      <Navigate to='/login' />
+    }
     if (query.trim() === '') {
       setPokemonsPromise(null);
       return;
