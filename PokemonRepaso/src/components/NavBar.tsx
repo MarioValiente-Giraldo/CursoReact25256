@@ -1,9 +1,11 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { useTheme } from '../context/ThemeContext'
+import { useLanguage } from '../context/LanguageContext' // ✅ Importar
 
 const NavBar = () => {
   const { theme } = useTheme()
+  const { texts } = useLanguage() // ✅ Obtener textos
   const isDark = theme === 'dark'
 
   return (
@@ -22,7 +24,7 @@ const NavBar = () => {
                 : 'text-white px-6 py-3 rounded-lg hover:bg-white/20 hover:scale-105 transition-all font-semibold backdrop-blur-sm border border-white/30'
             }
           >
-            Pokemons
+            {texts.navBar.pokemons} {/* ✅ Traducción */}
           </NavLink>
           <NavLink 
             to='/types'  
@@ -32,7 +34,7 @@ const NavBar = () => {
                 : 'text-white px-6 py-3 rounded-lg hover:bg-white/20 hover:scale-105 transition-all font-semibold backdrop-blur-sm border border-white/30'
             }
           >
-            Tipos
+            {texts.navBar.types} {/* ✅ Traducción */}
           </NavLink>   
           <NavLink 
             to='/games'  
@@ -42,12 +44,11 @@ const NavBar = () => {
                 : 'text-white px-6 py-3 rounded-lg hover:bg-white/20 hover:scale-105 transition-all font-semibold backdrop-blur-sm border border-white/30'
             }
           >
-            Juegos
+            {texts.navBar.games} {/* ✅ Traducción */}
           </NavLink>         
         </div>
       </div>
       
-      {/* Línea decorativa inferior */}
       <div className='h-1 bg-gradient-to-r from-transparent via-yellow-400 to-transparent'></div>
     </nav>
   )

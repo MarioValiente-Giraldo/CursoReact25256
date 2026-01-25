@@ -1,13 +1,15 @@
-import React, { useState, type FormEvent } from 'react'
+import  { useState, type FormEvent } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
 import { useTheme } from '../context/ThemeContext'
+import { useLanguage } from '../context/LanguageContext' // ✅ Importar
 
 const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
     const { login } = useAuth()
     const { theme } = useTheme()
+    const { texts } = useLanguage() // ✅ Obtener textos
     const navigate = useNavigate()
 
     const handleSubmit = (e: FormEvent) => {
@@ -22,12 +24,10 @@ const LoginForm = () => {
         <div className={`min-h-screen flex items-center justify-center p-4 transition-colors ${
             isDark ? 'bg-gray-900' : 'bg-gray-100'
         }`}>
-            {/* Contenedor Principal estilo Pokédex */}
             <div className={`rounded-3xl shadow-2xl p-2 w-full max-w-md border-4 ${
                 isDark ? 'bg-red-700 border-gray-700' : 'bg-red-600 border-gray-900'
             }`}>
                 
-                {/* Pantalla interior */}
                 <div className={`rounded-2xl p-8 border-4 ${
                     isDark ? 'bg-gray-800 border-gray-600' : 'bg-white border-gray-800'
                 }`}>
@@ -44,7 +44,7 @@ const LoginForm = () => {
                         <h1 className={`text-3xl font-black mb-2 tracking-tighter uppercase italic ${
                             isDark ? 'text-white' : 'text-gray-900'
                         }`}>
-                            Acceso Entrenador
+                            {texts.loginForm.trainer_access} {/* ✅ Traducción */}
                         </h1>
                         <div className="h-1 w-20 bg-red-500 mx-auto rounded-full"></div>
                     </div>
@@ -54,13 +54,13 @@ const LoginForm = () => {
                             <label className={`block text-xs font-black uppercase mb-2 ml-1 tracking-widest ${
                                 isDark ? 'text-gray-400' : 'text-gray-500'
                             }`}>
-                                ID de Usuario (Email):
+                                {texts.loginForm.id_user} {/* ✅ Traducción */}
                             </label>
                             <input 
                                 type='email' 
                                 value={email} 
                                 onChange={(e) => setEmail(e.target.value)}
-                                placeholder="ash.ketchum@pueblopaleta.com"
+                                placeholder={texts.loginForm.email_placeholder} 
                                 className={`w-full px-4 py-3 rounded-xl border-2 focus:outline-none focus:ring-4 focus:ring-blue-400 focus:border-blue-500 transition-all font-mono text-sm ${
                                     isDark 
                                         ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' 
@@ -73,13 +73,13 @@ const LoginForm = () => {
                             <label className={`block text-xs font-black uppercase mb-2 ml-1 tracking-widest ${
                                 isDark ? 'text-gray-400' : 'text-gray-500'
                             }`}>
-                                Código de Acceso:
+                                {texts.loginForm.pass} {/* ✅ Traducción */}
                             </label>
                             <input 
                                 type='password' 
                                 value={password} 
                                 onChange={(e) => setPassword(e.target.value)}
-                                placeholder="••••••••"
+                                placeholder={texts.loginForm.password_placeholder} 
                                 className={`w-full px-4 py-3 rounded-xl border-2 focus:outline-none focus:ring-4 focus:ring-blue-400 focus:border-blue-500 transition-all font-mono text-sm ${
                                     isDark 
                                         ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' 
@@ -92,7 +92,7 @@ const LoginForm = () => {
                             type="submit"
                             className="w-full bg-blue-500 hover:bg-blue-400 text-white font-black py-4 rounded-xl border-b-4 border-blue-700 shadow-lg transition-all active:border-b-0 active:translate-y-1 uppercase tracking-widest"
                         >
-                            ¡Conectar!
+                            {texts.loginForm.connect} {/* ✅ Traducción */}
                         </button>
                     </form>
 

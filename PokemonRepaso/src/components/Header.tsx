@@ -1,7 +1,7 @@
-import React from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 
 /**
  * Componente Header temático de Pokémon con GIF animado
@@ -9,6 +9,7 @@ import { useTheme } from '../context/ThemeContext';
 const Header = () => {
   const { user, logout } = useAuth()
   const { theme, toggleTheme } = useTheme();
+  const { language, toggleLanguage, texts}=useLanguage();
   const navigate = useNavigate()
 
   const isDark = theme === 'dark'
@@ -48,18 +49,25 @@ const Header = () => {
             
             <div>
               <h1 className="text-4xl font-bold text-white drop-shadow-lg tracking-tight">
-                PokéDex
+                {texts.header.pokedex}
               </h1>
               <p className={`text-sm font-medium mt-1 ${
                 isDark ? 'text-red-200' : 'text-red-100'
               }`}>
-                Gotta Catch 'Em All!
+                {texts.header.tagline}
               </p>
             </div>
           </div>
 
           {/* Botones Estilizados */}
           <div className="flex items-center gap-3">
+            <button 
+              onClick={toggleLanguage}
+              className="px-3 py-1 rounded-md bg-black/20 hover:bg-black/40 transition-all border border-white/20 text-white text-xs font-bold uppercase"
+              title="Cambiar Idioma"
+            >
+              {language === 'es' ? '🇬🇧 EN' : '🇪🇸 ES'}
+            </button>
             <button 
                 onClick={toggleTheme}
                 className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-all border border-white/30 text-white"
@@ -72,7 +80,7 @@ const Header = () => {
                 onClick={handleLogin}
                 className="px-6 py-2 bg-blue-500 text-white font-bold rounded-full border-b-4 border-blue-700 hover:bg-blue-400 hover:border-blue-500 transition-all active:border-b-0 active:translate-y-1 shadow-lg"
               >
-                Iniciar Sesión
+                {texts.header.login}
               </button>
             )}
 
@@ -83,14 +91,14 @@ const Header = () => {
                     onClick={handleDashboard}
                     className="px-6 py-2 bg-yellow-400 text-gray-900 font-bold rounded-full border-b-4 border-yellow-600 hover:bg-yellow-300 hover:border-yellow-400 transition-all active:border-b-0 active:translate-y-1 shadow-lg"
                   >
-                    Dashboard
+                {texts.header.dashboard}
                   </button>
                 )}
                 <button 
                   onClick={handleLogout}
                   className="px-4 py-2 bg-white/20 backdrop-blur-sm text-white font-semibold rounded-lg border border-white/30 hover:bg-white/30 transition-all shadow-md text-sm"
                 >
-                  Cerrar Sesión
+                  {texts.header.logout}
                 </button>
               </div>
             )}

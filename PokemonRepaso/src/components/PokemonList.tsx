@@ -3,6 +3,7 @@ import type { Pokemon } from '../types/pokemon';
 import PokemonCard from './PokemonCard';
 import notFoundPokemon from '../assets/notFoundPokemon.gif'
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext'; // ✅ Importar
 
 interface PokemonListProps {
   pokemonPromise: Promise<Pokemon[]>;
@@ -11,26 +12,25 @@ interface PokemonListProps {
 const PokemonList = ({ pokemonPromise }: PokemonListProps) => {
   const pokemons = use(pokemonPromise);
   const { theme } = useTheme()
+  const { texts } = useLanguage() // ✅ Obtener textos
   const isDark = theme === 'dark'
 
   if (pokemons.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-16">
-        {/* GIF centrado */}
         <img 
           src={notFoundPokemon} 
           alt="Pokemon no encontrado"
           className="w-64 h-64 mb-6 drop-shadow-2xl"
         />
         
-        {/* Textos */}
         <p className={`text-2xl font-semibold mb-2 ${
           isDark ? 'text-gray-200' : 'text-gray-700'
         }`}>
-          No se encontró ningún Pokémon
+          {texts.pokemonList.no_pokemon_found} {/* ✅ Traducción */}
         </p>
         <p className={isDark ? 'text-gray-400' : 'text-gray-500'}>
-          Intenta buscar con otro nombre
+          {texts.pokemonList.try_another_search} {/* ✅ Traducción */}
         </p>
       </div>
     );
