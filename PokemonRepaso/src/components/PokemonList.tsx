@@ -1,4 +1,4 @@
-import React, { use } from 'react';
+import  { use } from 'react';
 import type { Pokemon } from '../types/pokemon';
 import PokemonCard from './PokemonCard';
 import notFoundPokemon from '../assets/notFoundPokemon.gif'

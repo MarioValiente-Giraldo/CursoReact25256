@@ -1,8 +1,8 @@
-import { createContext, use, useContext, useState, type ReactNode } from "react"
+import { createContext, useContext, useState, type ReactNode } from "react"
 
 //1º Definimos los tipos de temas 
 type Theme <> = 'light' | 'dark'
-//2º Definimos la interfaz de los temas 
+//2º Definimos la interfaz de los temas     
 interface ThemeContextType {
     theme:Theme
     toggleTheme : ()=>void

@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { fetchPokemons } from '../utils/allFetchs';
 import type { Pokemon } from '../types/pokemon';
 import Search from '../components/Search';
@@ -12,7 +12,7 @@ const PokemonSearch = () => {
   const [pokemonsPromise, setPokemonsPromise] = useState<Promise<Pokemon[]> | null>(null);
   const [query, setQuery] = useState('');
   const { user } = useAuth()
-  const { texts } = useLanguage() // ✅ Obtener textos
+  const { texts } = useLanguage() 
 
   useEffect(() => {
     if(!user){

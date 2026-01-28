@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from 'react'
+import  { Suspense, useEffect, useState } from 'react'
 import PlatosList from './components/PlatosList'
 import Header from './components/Header'
 import LoadingFallBack from './components/LoadingFallBack'
