@@ -1,5 +1,4 @@
-import React from 'react'
-import { Link, NavLink, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import PokemonSearch from './pages/PokemonSearch'
 import PokemonTypesSearch from './pages/PokemonTypesSearch'
 import PokemonGamesSearch from './pages/PokemonGamesSearch'
@@ -19,8 +18,8 @@ const App = () => {
   return (
     <div className={`min-h-screen transition-colors ${
       isDark 
-        ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900' 
-        : 'bg-gradient-to-br from-gray-50 via-red-50 to-orange-50'
+        ? 'bg-linear-to-br from-gray-900 via-gray-800 to-gray-900' 
+        : 'bg-linear-to-br from-gray-50 via-red-50 to-orange-50'
     }`}>
       <Toaster position='top-center' richColors theme={theme} />
         <Header />

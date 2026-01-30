@@ -1,19 +1,16 @@
 import { createContext, useContext, useState, type ReactNode } from "react"
+import type { Theme, ThemeContextType } from "../types"
 
-//1º Definimos los tipos de temas 
-type Theme <> = 'light' | 'dark'
-//2º Definimos la interfaz de los temas     
-interface ThemeContextType {
-    theme:Theme
-    toggleTheme : ()=>void
-}
-//3º Creamos el alamcénb global de los temas
+
+//1º Crear el contextexto con un hook personalizado
 const ThemeContext = createContext<ThemeContextType | null>(null)
+//2º Estado inicial del contexto
+const estadoInicialTema: Theme = 'light'
 
-//4º Crear el Provider que envuelve nuestra App
+//3º Crear el Provider que envuelve nuestra App
 export const ThemeProvider = ({ children }:{children:ReactNode})=>{
-    //Definimos las propiedas de nuestra interfaz del contexto
-    const [theme, setTheme] = useState<Theme>('light')
+    //Hooks de nuestro contexto
+    const [theme, setTheme] = useState<Theme>(estadoInicialTema)
     //Definimos la lógica del cambio de tema
     const toggleTheme = () => {
         setTheme((prev)=>(prev==='light'?'dark':'light'))
@@ -27,8 +24,7 @@ export const ThemeProvider = ({ children }:{children:ReactNode})=>{
     return <ThemeContext value={value}>{children}</ThemeContext>
 }
 
-//5º Definiar el hook personalizado para poder usar nuestro contexto
-
+//4º Definiar el hook personalizado para poder usar nuestro contexto
 export function useTheme(){
     const context = useContext(ThemeContext)
     if(!context) throw new Error('Error al cargar el contexto ligado al tema')

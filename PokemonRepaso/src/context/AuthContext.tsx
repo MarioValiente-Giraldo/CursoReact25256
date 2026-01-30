@@ -1,26 +1,19 @@
 import { createContext, useContext, useState, type ReactNode } from "react"
-//1º Definar la interfaz de Usuario
-interface User {
-    username: string
-    role: 'admin' | 'user'
-}
+import type { AuthContextType, User } from "../types"
 
-//2º Definiar la interfaz del contexto
-interface AuthContextType{
-    user: User | null
-    login: (email:string, password:string)=> boolean
-    logout: ()=>void
-}
 
-//3º Creamos el almacén global para poder usar los contextos en todos nuestros componentes
+//1º Crear el contextexto con un hook personalizado
 const AuthContext = createContext<AuthContextType | null>(null)
-
-//4º Crear el Provider que envuelve nuestra App
+// 2º Estado inicial del contexto
+const estadoInicial:User={
+    username:'',
+    role : 'unknown'
+}
+//3º Crear el Provider que envuelve nuestra App
 export const AuthProvider = ({ children }: { children:ReactNode})=>{
-    //Definimos las propiedas de nuestra interfaz del contexto
-    //Definimos User
-    const [user,setUser] = useState<User |null >(null)
-    //Definimos la función de login
+    //Definimos User (hook del contexto)
+    const [user,setUser] = useState<User  >(estadoInicial)
+    //Definimos la lógica del contexto
     const login = (username:string,password:string):boolean=>{
         if (username && password){
             if(username === 'admin@admin.com' && password === '1234'){
@@ -32,14 +25,14 @@ export const AuthProvider = ({ children }: { children:ReactNode})=>{
         }
         return false
     }
-    //Definimos la función de logout
+   
     const logout = ()=>{
-        setUser(null)
+        setUser(estadoInicial)
     }
 
     //Al definir las propiedades de nuestra interfaz del contexto, la englobamos en una varibale/objeto para posteriormente retornar lo que queremos
     const value = {
-        user,
+        ...user,
         login,
         logout
     }
@@ -48,7 +41,7 @@ export const AuthProvider = ({ children }: { children:ReactNode})=>{
     return <AuthContext value={value}>{children}</AuthContext>
 }
 
-//5º Creamos un hook personalizado para poder utilizar nuestras propiedades en el resto de los componentes
+//4º Creamos un hook personalizado para poder utilizar nuestras propiedades en el resto de los componentes
 export function useAuth(){
     const context = useContext(AuthContext)
     if(context === null){
