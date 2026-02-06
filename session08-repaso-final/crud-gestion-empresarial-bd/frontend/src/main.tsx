@@ -4,7 +4,8 @@ import './index.css'
 import AppBasicoReact19 from './Apps/AppBasicoReact19.tsx'
 import { Toaster } from 'sonner'
 import CompaniesForm from './components/companies/CompaniesForm.tsx'
-const App = CompaniesForm 
+import AppRegisterCompany from './Apps/AppRegisterCompany.tsx'
+const App = AppRegisterCompany 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Toaster position="top-center" richColors  />
