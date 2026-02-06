@@ -1,5 +1,6 @@
 import { useActionState } from "react";
 import { companiesAPI } from "../../utils/api";
+import { toast } from "sonner";
 
 // Estado del formulario
 type formState = {
@@ -38,7 +39,7 @@ const CompaniesForm = () => {
     try {
       console.log("Enviando datos:", { name, industry, website });
       await companiesAPI.createCompany({ name, industry, website });
-
+      toast('Compañia creada con existo')
       return {
         success: true,
         message: `¡Empresa ${name} registrada correctamente!`
