@@ -1,14 +1,16 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
 import { translations, type Language } from "../utils/translations"
+import type { LanguageContextType } from "../types";
 
-interface LanguageContextType {
-  language: Language;
-  toggleLanguage: ()=> void;
-  texts: typeof translations.es
-}
+
+//1º Crear el contextexto con un hook personalizado
 const LanguageContext = createContext<LanguageContextType | null> (null)
+
+//2º Crear el Provider que envuelve nuestra App
 export const LanguageProvider = ({children} : {children:ReactNode}) => {
+  //Definimos el hook del contexto del idioma
   const [language, setLanguage] = useState<Language>('es')
+  //Definimos la lógica de nuestro contexto
   const toggleLanguage = () =>{
     setLanguage((prev)=>(prev === 'es'?'en':'es'));
   }
@@ -20,9 +22,7 @@ export const LanguageProvider = ({children} : {children:ReactNode}) => {
   }
 
   return (
-    <div>
       <LanguageContext value={value}>{children}</LanguageContext>
-    </div>
   )
 }
 

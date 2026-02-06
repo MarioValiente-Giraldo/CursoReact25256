@@ -7,11 +7,11 @@ interface ProtectedRouteAdminProps {
 }
 
 export const ProtectedRouteAdmin =( {children}: ProtectedRouteAdminProps) =>{
-    const { user } = useAuth();
-    if(!user){
+    const { role } = useAuth()
+    if(!role){
         return <Navigate to='*'/>
     }
-    if(user.role!=='admin'){
+    if(role!=='admin'){
         return <Navigate to='/'/>
     }
     return <>{children}</>
