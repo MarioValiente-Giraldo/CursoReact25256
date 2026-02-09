@@ -8,6 +8,16 @@ const AppRegisterCompany = () => {
   const [companies,setCompanies]=useState<Companies[]>([])
   const [loading,setLoading] = useState(true)
   const [error,setError]=useState<string | null>(null)
+  
+  const handleDeleteButton=async(id:number|string)=>{
+      try{
+          await companiesAPI.deleteById(id)
+          setCompanies((prev)=>prev.filter((company)=>company.id!==id))
+      }catch(error){
+        throw error
+      }
+  }
+
   const fetchCompanies = async()=>{
     try {
       setLoading(true)
@@ -26,8 +36,10 @@ const AppRegisterCompany = () => {
   },[])
   return (
     <div>
-      <CompaniesList companies={companies} />
-      <CompaniesForm />
+      <CompaniesList onDelete={handleDeleteButton} companies={companies} />
+      <CompaniesForm onSuccess={fetchCompanies} />
+      {loading && <p>Cargando empresas...</p>}
+      {error && <p>{error}</p>}
     </div>
   )
 }

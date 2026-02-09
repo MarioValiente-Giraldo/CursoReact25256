@@ -1,4 +1,4 @@
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import { companiesAPI } from "../../utils/api";
 import { toast } from "sonner";
 
@@ -19,8 +19,11 @@ const CompanyLogo = () => (
     <path fillRule="evenodd" d="M3 6a3 3 0 013-3h12a3 3 0 013 3v12a3 3 0 01-3 3H6a3 3 0 01-3-3V6zm14.25 6a.75.75 0 01-.22.53l-2.25 2.25a.75.75 0 11-1.06-1.06L15.44 12l-1.72-1.72a.75.75 0 111.06-1.06l2.25 2.25c.141.14.22.331.22.53zm-10.28 0a.75.75 0 01.22-.53l2.25-2.25a.75.75 0 111.06 1.06L8.56 12l1.72 1.72a.75.75 0 11-1.06 1.06l-2.25-2.25a.75.75 0 01-.22-.53z" clipRule="evenodd" />
   </svg>
 );
+interface CompaniesFormProps {
+    onSuccess?: () => void;
+}
 
-const CompaniesForm = () => {
+const CompaniesForm = ({onSuccess}: CompaniesFormProps) => {
   // Función Server Action
   const formAction = async (_: formState, formData: FormData): Promise<formState> => {
     // Convertimos a string para asegurarnos
@@ -58,7 +61,11 @@ const CompaniesForm = () => {
     success: false,
     message: ''
   })
-
+  useEffect(() => {
+      if (state.success && onSuccess) {
+          onSuccess();
+      }
+    }, [state.success, onSuccess]);
   return (
     <div className="min-h-screen flex items-center justify-center bg-purple-50 p-6 font-sans">
       <div className="w-full max-w-md bg-white rounded-3xl shadow-xl shadow-purple-200/60 p-8 border border-white">

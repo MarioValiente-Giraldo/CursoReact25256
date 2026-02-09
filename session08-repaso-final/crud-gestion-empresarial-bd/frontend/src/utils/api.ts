@@ -35,9 +35,25 @@ export const companiesAPI = {
             console.error("Error en createCompany:", error);
             throw error;
         }
-    }
-    // async getById(id){},
-    // async create(){},
-    // async deleteById(),
-
+    },
+    async getById(id:string | number):Promise<Companies>{
+        try{
+            const response = await fetch(`http://localhost:3001/api/companies/${id}`)
+            if (!response.ok)throw new Error(`Error al conseguir los datos de la empresa con el ID ${id}`)
+            return await response.json()
+        }catch(error){
+            throw error
+        }
+    },
+    async deleteById(id:string | number):Promise<void>{
+        try{
+            const response = await fetch(`http://localhost:3001/api/companies/${id}`,{
+                method: 'DELETE'
+            })
+            if (!response.ok)throw new Error(`Error al eliminar los datos de la empresa con el ID ${id}`)
+            return;
+        }catch(error){
+            throw error
+        }
+    }   
 }
