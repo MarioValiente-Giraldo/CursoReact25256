@@ -1,22 +1,16 @@
 import { Link } from "react-router-dom"
 import { useAuthContext } from "../hooks/useAuthContext"
-import { useEffect } from "react"
-import { useIncidentContext } from "../hooks/useIncidentContext"
 
 export const HomePage = () => {
     const {user}=useAuthContext()
-    const {fetchIncidents}=useIncidentContext()
-    useEffect(()=>{
-        fetchIncidents()
-    },[fetchIncidents])
   return (
-    <div>
-        <h1>
+    <div className="page">
+        <h1 className="page-title">
             Bienvenido a IncidTech {!!user && user.name}
         </h1>
-
-        <Link to='/incidents'>
-        Pulse aquí para ver las incidencias
+        <p className="page-subtitle">Gestiona las incidencias de tu organización de forma sencilla.</p>
+        <Link to='/incidents' className="btn btn-primary" style={{width:'fit-content'}}>
+            Ver incidencias
         </Link>
     </div>
   )

@@ -10,25 +10,23 @@ export const IncidentCard = ({incident}:IncidentCardProps) => {
     const {removeIncident}=useIncidentContext()
     const {user} =useAuthContext()
     return (
-        <div className=" card card:hover">
+        <div className="card">
             <div className="card-header">
-                <h1 className="card-title">{incident.title}</h1>
-                <span className={`badge ${
-                    incident.priority === 'alta' ? 'badge-alta' :
-                    incident.priority === 'media' ? 'badge-media' :
-                    'badge-baja'
-                }`}>
-                    {incident.priority}
-                </span>        
+                <h2 className="card-title">{incident.title}</h2>
+                <div className="card-badges">
+                    <span className={`badge badge-${incident.priority}`}>{incident.priority}</span>
+                    <span className={`badge badge-${incident.status}`}>{incident.status}</span>
+                </div>
             </div>
-            <div>
-                <p>{incident.description}</p>
-                <p>{incident.status}</p>
+            <p className="card-description">{incident.description}</p>
+            <div className="card-footer">
+                <span className="card-date">{new Date(incident.createdAt).toLocaleDateString()}</span>
+                {!!user && (
+                    <button className="btn btn-danger" onClick={() => removeIncident(incident.id)}>
+                        Eliminar
+                    </button>
+                )}
             </div>
-            {!!user && <button onClick={()=>removeIncident(incident.id)}>Elimina</button>}
-
-            
         </div>
     )
 }
-    
