@@ -7,7 +7,7 @@ interface BookCardProps {
 }
 const BookCard = ({book}:BookCardProps) => {
     const{user}=useAuthContext()
-    const{removeBook}=useBookContext()
+    const{removeBook,añadirCarrito}=useBookContext()
   return (
     <div className="bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden flex flex-col border border-amber-100">
         {/* Contenedor de la imagen*/}
@@ -41,6 +41,12 @@ const BookCard = ({book}:BookCardProps) => {
                 Eliminar
               </button>
             )}
+            <button
+              onClick={() => añadirCarrito()}
+              className="w-full py-1.5 text-sm font-medium text-amber-900 bg-amber-100 border border-amber-300 rounded-lg hover:bg-amber-200 transition-colors duration-150"
+            >
+              🛒 Añadir al carrito
+            </button>
         </div>
     </div>
   )

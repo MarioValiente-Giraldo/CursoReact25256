@@ -5,7 +5,7 @@ import { booksApi } from "../services/api"
 export const useBook = () =>{
     const [books, setBooks] = useState<Book [] | undefined>()
     const [loading, setLoading] = useState<boolean>(false)
-
+    const [contadorCarrito, setContadorCarrito] = useState<number>(0)
     const fetchBooks = async ():Promise<void>=>{
         try {
             setLoading(true)
@@ -45,10 +45,15 @@ export const useBook = () =>{
             setLoading(false)
         }
     }
+    const añadirCarrito = () =>{
+            setContadorCarrito(contadorCarrito+1)
+    }
 
     return{
         books,
+        contadorCarrito,
         loading,
+        añadirCarrito,
         fetchBooks,
         addBook,
         removeBook

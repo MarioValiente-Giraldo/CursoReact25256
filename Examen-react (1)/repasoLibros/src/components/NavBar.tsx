@@ -1,8 +1,10 @@
 import { Link, Outlet } from "react-router-dom"
 import { useAuthContext } from "../hooks/useAuthContext"
+import { useBookContext } from "../hooks/useBookContext"
 
 const NavBar = () => {
   const { user, logout } = useAuthContext()
+  const {contadorCarrito}=useBookContext()
 
   return (
     <>
@@ -10,6 +12,9 @@ const NavBar = () => {
         <span className="text-lg font-bold tracking-wide">📚 Biblioteca</span>
 
         <div className="flex items-center gap-4">
+            <div>
+                Carrito: {contadorCarrito}
+            </div>
             <Link
             to="/"
             className="text-sm font-medium hover:text-amber-600 transition-colors"

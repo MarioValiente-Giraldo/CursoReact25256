@@ -5,6 +5,8 @@ import { useBook } from "../hooks/useBook";
 export interface BooksContextType {
     books:Book []| undefined;
     loading:boolean;
+    contadorCarrito:number
+    añadirCarrito():void
     fetchBooks():Promise<void>
     addBook(book:CreateBookDTO):Promise<void>
     removeBook(id:number):Promise<void>
